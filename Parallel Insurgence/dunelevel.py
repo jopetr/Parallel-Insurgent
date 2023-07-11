@@ -1,5 +1,6 @@
 import pygame
 import math
+from character_class import Character
 from random import random as random
 from random import randint as randint
 
@@ -78,6 +79,9 @@ def run_game(width: int, height: int, display_surface: pygame.Surface):
     intro_head_x = -1*width/2
     intro_head_y = height
     intro_ext_time = 0
+
+    character = Character()
+
     while intro:
         
         for event in pygame.event.get():  
@@ -184,7 +188,10 @@ def run_game(width: int, height: int, display_surface: pygame.Surface):
             display_surface.blit(im, rect)
 
 
-
+        # Character
+        print('reached')
+        character.walk_update(100, (100, sand_height), (tick/1000)%1.0)
+        character.blit(display_surface)
 
         # Dust
         for i in range(len(segments)):
