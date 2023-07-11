@@ -3,6 +3,10 @@ import math
 
 class Character:
     
+    '''
+    Private
+    Loads images for character from path
+    '''
     def __load_components(self, path):
         ims = []
         im = pygame.image.load(path+"head.png").convert_alpha()
@@ -31,6 +35,10 @@ class Character:
         ims.append(im)
         return ims
     
+    '''
+    Private
+    Calculates (x, y) position of a child object from it's parent to facilitate dependent objects
+    '''
     def __child_pos(self, parent_pos, parent_angle, distance):
         x, y = parent_pos
         angle = 360-1*parent_angle+90
@@ -39,6 +47,9 @@ class Character:
         child_pos = (child_x, child_y)
         return child_pos
 
+    '''
+    Updates rects and ims to correspond to scale, position, and all angles
+    '''
     def update(self, scale, pos, angles):
         # Angles
 
@@ -167,6 +178,9 @@ class Character:
         self.rects = rects
         self.ims = ims
 
+    '''
+    Updates rects and ims to correspond to scale, position, and all angles for a certain point in walking animation (val)
+    '''
     def walk_update(self, scale, pos, val):
         
         insurgent_components = self.components
@@ -270,9 +284,15 @@ class Character:
         
         self.update(scale, (x, y), angles)
 
+    '''
+    Blits character to display surface using rects and ims
+    '''
     def blit(self, display_surface: pygame.Surface):
         for i in range(len(self.rects)):
             display_surface.blit(self.ims[i], self.rects[i])
 
+    '''
+    Initializes character by loading character images from given path
+    '''
     def __init__(self, path):
         self.components = self.__load_components(path)
